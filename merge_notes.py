@@ -19,7 +19,7 @@ client = OpenAI(
 
 BASE_DIR = Path(__file__).resolve().parent
 PAGE_NOTES_DIR = BASE_DIR / "PageNotes"
-MARKDOWN_OUTPUT_DIR = Path(r"C:\Users\srich\OneDrive\Documents\Notes-Wiki\Lectures")
+MARKDOWN_OUTPUT_DIR = Path(os.getenv("MARKDOWN_OUTPUT_DIR", "./output"))
 
 MARKDOWN_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 

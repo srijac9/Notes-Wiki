@@ -37,12 +37,12 @@ def is_allowed_file(filename: str) -> bool:
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
-    # 🔐 Check secret key
+    # Check secret key
     incoming_key = request.form.get("key")
     if incoming_key != SECRET_KEY:
         return "Unauthorized", 401
 
-    # 📦 Check file exists
+    # Check file exists
     if "file" not in request.files:
         return "No file part", 400
 
@@ -51,18 +51,18 @@ def upload_file():
     if not file or file.filename == "":
         return "No selected file", 400
 
-    # 📄 Check file type
+    # Check file type
     if not is_allowed_file(file.filename):
         return "Only PDF files are allowed", 400
 
-    # 🔒 Secure filename + timestamp
+    # Secure filename + timestamp
     safe_name = secure_filename(file.filename)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{timestamp}_{safe_name}"
 
     save_path = os.path.join(UPLOAD_FOLDER, filename)
 
-    # 💾 Save file
+    # Save file
     file.save(save_path)
 
     print(f"Saved: {save_path}")
@@ -70,7 +70,7 @@ def upload_file():
     return "Upload successful", 200
 
 
-# 🚫 Handle oversized files
+# Handle oversized files
 @app.errorhandler(413)
 def too_large(_error):
     return "File too large. Max size is 1 GB.", 413

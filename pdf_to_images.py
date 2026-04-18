@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
 from pdf2image import convert_from_path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Base directories
 BASE_DIR = Path(__file__).resolve().parent
@@ -10,7 +13,7 @@ OUTPUT_DIR = BASE_DIR / "PageImages"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Poppler path (adjust if needed)
-POPPLER_PATH = r"C:\Users\srich\Downloads\poppler\poppler-25.12.0\Library\bin"
+POPPLER_PATH = os.environ['POPPLER_PATH']
 
 def convert_pdf_to_images(pdf_path: Path):
     print(f"Processing: {pdf_path.name}")
